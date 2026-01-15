@@ -24,7 +24,7 @@ Future<Client> runOAuthFlow() async {
     accessTokenUrl,
   );
 
-  final scopes = ["openid", "offline"];
+  final scopes = ["openid", "auth:launcher", "offline"];
   final redirectUrl = Uri.parse("https://accounts.hytale.com/consent/client");
 
   final port = 8080;
@@ -37,10 +37,14 @@ Future<Client> runOAuthFlow() async {
 
   final server = await HttpServer.bind(InternetAddress.loopbackIPv4, port);
 
-  final authUrl = grant.getAuthorizationUrl(
+  final baseAuthUrl = grant.getAuthorizationUrl(
     redirectUrl,
     scopes: scopes,
     state: encodedState,
+  );
+
+  final authUrl = baseAuthUrl.replace(
+    queryParameters: {...baseAuthUrl.queryParameters, 'access_type': 'offline'},
   );
 
   launchUrl(authUrl);
