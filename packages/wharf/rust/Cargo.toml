@@ -8,7 +8,7 @@ name = "wharf"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
-flutter_rust_bridge = "=2.10.0"
+flutter_rust_bridge = "=2.11.1"
 wharf = { git = "https://github.com/EricApostal/scratch-io", version = "0.1.0" }
 
 
