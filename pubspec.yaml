@@ -15,9 +15,9 @@ dependencies:
   hyapi:
     path:
       ./packages/hyapi
-  wharf:
+  wharf_flutter:
     path:
-      ./packages/wharf
+      ./packages/wharf_flutter
   path_provider: ^2.1.5
 
 dev_dependesncies:
