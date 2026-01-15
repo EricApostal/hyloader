@@ -5,8 +5,8 @@ part 'patch_steps.mapper.dart';
 @MappableClass()
 class PatchStep with PatchStepMappable {
   final int from;
-  final Uri pwr;
-  final Uri sig;
+  final String pwr;
+  final String sig;
   final int to;
   const PatchStep({
     required this.from,

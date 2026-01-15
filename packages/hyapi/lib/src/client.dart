@@ -7,18 +7,31 @@ import 'package:oauth2/oauth2.dart';
 class HytaleClient {
   final LauncherOptions launcherOptions;
   final Client oauthClient;
+  final Dio dio;
 
   const HytaleClient._({
     required this.launcherOptions,
     required this.oauthClient,
+    required this.dio,
   });
   LauncherManager get launcher => LauncherManager(client: this);
   PatchManager get patches => PatchManager(client: this);
 
   static Future<HytaleClient> login({required LauncherOptions options}) async {
     final oauthClient = await runOAuthFlow();
+    final dio = Dio(
+      BaseOptions(
+        headers: {
+          "Authorization": "Bearer ${oauthClient.credentials.accessToken}",
+        },
+      ),
+    );
 
-    return HytaleClient._(launcherOptions: options, oauthClient: oauthClient);
+    return HytaleClient._(
+      launcherOptions: options,
+      oauthClient: oauthClient,
+      dio: dio,
+    );
   }
 }
 

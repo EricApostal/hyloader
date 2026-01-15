@@ -4,13 +4,13 @@ import 'package:hyapi/src/models/patch/patch_steps.dart';
 import 'package:hyapi/src/utils/parsing_helpers.dart';
 
 class PatchManager extends Manager {
-  final dio = Dio(BaseOptions(baseUrl: "https://account-data.hytale.com/"));
-
   PatchManager({required super.client});
 
   Future<List<PatchStep>> listPatchSteps() async {
-    final response = await dio.get("patches/linux/amd64/release/1");
+    final response = await client.dio.get(
+      "https://account-data.hytale.com/patches/linux/amd64/release/1",
+    );
 
-    return parseMany(response.data, PatchStepMapper.fromMap);
+    return parseMany(response.data["steps"], PatchStepMapper.fromMap);
   }
 }
