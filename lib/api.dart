@@ -66,7 +66,4 @@ Future<void> startOAuth() async {
   final credentials = (await grant.handleAuthorizationResponse(
     newParams,
   )).credentials;
-
-  print("got creds");
-  print(credentials.scopes);
 }

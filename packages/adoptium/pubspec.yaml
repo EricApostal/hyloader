@@ -1,0 +1,39 @@
+name: adoptium
+description: "OpenAPI generated client for Adoptium"
+version: 0.0.1
+homepage:
+publish_to: none
+
+environment:
+  sdk: ^3.10.4
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dart_mappable: ^4.6.1
+  dio: ^5.9.0
+  retrofit:
+    git: 
+      url: https://github.com/trevorwang/retrofit.dart
+      path: retrofit
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  swagger_parser: ^1.37.1
+  dart_mappable_builder: ^4.6.3
+  build_runner: ^2.10.4
+  retrofit_generator:
+    git: 
+        url: https://github.com/trevorwang/retrofit.dart
+        path: generator
+
+dependency_overrides: 
+  retrofit:
+    git: 
+      url: https://github.com/trevorwang/retrofit.dart
+      path: retrofit
+      
+flutter:
