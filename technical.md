@@ -22,6 +22,8 @@ Okay yes I am 100% sure now it's a patch thing that optimizes by only giving you
 my hope and guess is that it's just a .zip and I can lazily extract and it'll find and replace
 maybe not removals though
 
+Okay yes it's wharf, I can gen bindings from https://crates.io/crates/scratch-io
+
 ## How 2 structure
 I am tying the oauth client to the HytaleClient itself
 I think we should register dio middleware for oauth check & refresh
