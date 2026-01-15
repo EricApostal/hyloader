@@ -23,7 +23,13 @@ class MainApp extends StatelessWidget {
                   basePath: "${baseDocumentDirectory.path}/hyloader",
                 ),
               );
-              print("got client = ${client.oauthClient.credentials.idToken}");
+
+              final patched = await client.patches.listPatchSteps();
+              print("got patched = $patched");
+
+              // print(
+              //   "got client = ${client.oauthClient.credentials.accessToken}",
+              // );
             },
             child: Text("Yo"),
           ),
