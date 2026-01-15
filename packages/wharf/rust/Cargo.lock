@@ -1104,6 +1104,7 @@ dependencies = [
 [[package]]
 name = "wharf"
 version = "0.1.0"
+source = "git+https://github.com/EricApostal/scratch-io#387785b04f90254f829a72929e32a1085d8524ce"
 dependencies = [
  "brotli",
  "flate2",

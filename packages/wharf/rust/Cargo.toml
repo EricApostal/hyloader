@@ -9,7 +9,7 @@ crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
 flutter_rust_bridge = "=2.10.0"
-wharf = { path = "../vendor/scratch-io/wharf", version = "0.1.0" }
+wharf = { git = "https://github.com/EricApostal/scratch-io", version = "0.1.0" }
 
 
 [lints.rust]
