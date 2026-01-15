@@ -9,14 +9,11 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 Future<void> patchWharf({
   required String patchPath,
   required String sigPath,
-  required Path oldDir,
-  required Path newDir,
+  required String oldPath,
+  required String newPath,
 }) => RustLib.instance.api.crateApiWharfNativePatchWharf(
   patchPath: patchPath,
   sigPath: sigPath,
-  oldDir: oldDir,
-  newDir: newDir,
+  oldPath: oldPath,
+  newPath: newPath,
 );
-
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Path>>
-abstract class Path implements RustOpaqueInterface {}

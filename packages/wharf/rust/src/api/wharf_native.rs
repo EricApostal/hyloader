@@ -7,8 +7,8 @@ use wharf::{Patch, Signature};
 pub fn patch_wharf(
     patch_path: &str,
     sig_path: &str,
-    old_dir: &Path,
-    new_dir: &Path,
+    old_path: &str,
+    new_path: &str,
 ) -> Result<(), String> {
     // patch
     let patch_file = File::open(patch_path).map_err(|e| e.to_string())?;
@@ -21,6 +21,13 @@ pub fn patch_wharf(
     let signature = Signature::read(&mut sig_reader)?;
 
     let mut hash_iter = signature.block_hash_iter;
+
+    let old_dir = Path::new(old_path);
+    let new_dir = Path::new(new_path);
+
+    // todo: maybe we should ensure these actually exist?
+    // either way I'll do that in the flutter layer though
+    // FRB does not like the path type but I'm fine with keeping that out
 
     patch.apply(old_dir, new_dir, &mut hash_iter, |bytes| {
         println!("Patched {} bytes", bytes);
