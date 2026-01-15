@@ -1,10 +1,22 @@
+import 'package:hyapi/authentication/oauth.dart';
 import 'package:hyapi/src/managers/launcher.dart';
+import 'package:oauth2/oauth2.dart';
 
 class HytaleClient {
   final LauncherOptions launcherOptions;
+  final Client oauthClient;
 
-  const HytaleClient({required this.launcherOptions});
+  const HytaleClient._({
+    required this.launcherOptions,
+    required this.oauthClient,
+  });
   LauncherManager get launcher => LauncherManager(client: this);
+
+  static Future<HytaleClient> login({required LauncherOptions options}) async {
+    final oauthClient = await runOAuthFlow();
+
+    return HytaleClient._(launcherOptions: options, oauthClient: oauthClient);
+  }
 }
 
 class LauncherOptions {

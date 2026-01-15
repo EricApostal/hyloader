@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   hive_ce: ^2.17.0
+  oauth2: ^2.0.5
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:

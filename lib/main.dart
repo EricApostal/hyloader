@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hyloader/api.dart';
+import 'package:hyapi/hyapi.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(const MainApp());
@@ -15,7 +16,14 @@ class MainApp extends StatelessWidget {
         body: Center(
           child: FilledButton(
             onPressed: () async {
-              await startOAuth();
+              final baseDocumentDirectory =
+                  await getApplicationDocumentsDirectory();
+              final client = await HytaleClient.login(
+                options: LauncherOptions(
+                  basePath: "${baseDocumentDirectory.path}/hyloader",
+                ),
+              );
+              print("got client = $client");
             },
             child: Text("Yo"),
           ),
