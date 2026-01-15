@@ -1,14 +1,15 @@
 [package]
-name = "wharf"
+name = "wharf_bridge"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
+name = "wharf"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
-flutter_rust_bridge = "=2.11.1"
-wharf = { git = "https://github.com/Vidi0/scratch-io", version = "0.1.0" }
+flutter_rust_bridge = "=2.10.0"
+wharf = { path = "../vendor/scratch-io/wharf", version = "0.1.0" }
 
 
 [lints.rust]
