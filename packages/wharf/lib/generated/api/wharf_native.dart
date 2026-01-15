@@ -6,5 +6,17 @@
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-String greet({required String name}) =>
-    RustLib.instance.api.crateApiWharfNativeGreet(name: name);
+Future<void> patchWharf({
+  required String patchPath,
+  required String sigPath,
+  required Path oldDir,
+  required Path newDir,
+}) => RustLib.instance.api.crateApiWharfNativePatchWharf(
+  patchPath: patchPath,
+  sigPath: sigPath,
+  oldDir: oldDir,
+  newDir: newDir,
+);
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Path>>
+abstract class Path implements RustOpaqueInterface {}
