@@ -28,10 +28,8 @@ class MainApp extends StatelessWidget {
               print("got patched = $patched");
               final launcherData = await client.accounts.fetchLauncherData();
               print("launcher data = ${launcherData}");
-
-              // print(
-              //   "got client = ${client.oauthClient.credentials.accessToken}",
-              // );
+              final session = await client.sessions.create();
+              print("got session = ${session}");
             },
             child: Text("Yo"),
           ),

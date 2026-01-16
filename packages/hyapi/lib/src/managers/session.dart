@@ -12,7 +12,7 @@ class SessionManager extends Manager {
       // todo: multiple profiles is probably wise
       // I think I'll have a bit of a refactor once I understand all of hytale,
       // since I'm baking in a few limitations
-      data: jsonEncode({"uuid": client.launcherData.profiles.first}),
+      data: jsonEncode({"uuid": client.launcherData.profiles.first.id}),
     );
 
     return SessionMapper.fromMap(response.data);
