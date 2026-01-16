@@ -1,3 +1,2 @@
-# hyloader
-
-A new Flutter project.
+# Hyloader
+A custom launcher for Hytale
