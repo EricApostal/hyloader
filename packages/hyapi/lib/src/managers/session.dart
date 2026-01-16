@@ -9,9 +9,10 @@ class SessionManager extends Manager {
   Future<Session> create() async {
     final response = await client.dio.post(
       "https://sessions.hytale.com/game-session/new",
-      data: jsonEncode({
-        "uuid": // todo
-      }),
+      // todo: multiple profiles is probably wise
+      // I think I'll have a bit of a refactor once I understand all of hytale,
+      // since I'm baking in a few limitations
+      data: jsonEncode({"uuid": client.launcherData.profiles.first}),
     );
 
     return SessionMapper.fromMap(response.data);

@@ -26,6 +26,8 @@ class MainApp extends StatelessWidget {
 
               final patched = await client.patches.listPatchSteps();
               print("got patched = $patched");
+              final launcherData = await client.accounts.fetchLauncherData();
+              print("launcher data = ${launcherData}");
 
               // print(
               //   "got client = ${client.oauthClient.credentials.accessToken}",

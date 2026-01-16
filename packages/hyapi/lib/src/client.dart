@@ -10,13 +10,12 @@ import 'package:oauth2/oauth2.dart';
 class HytaleClient {
   final LauncherOptions launcherOptions;
   final Client oauthClient;
-  final LauncherData launcherData;
   final Dio dio;
+  late final LauncherData launcherData;
 
-  const HytaleClient._({
+  HytaleClient._({
     required this.launcherOptions,
     required this.oauthClient,
-    required this.launcherData,
     required this.dio,
   });
 
@@ -38,16 +37,16 @@ class HytaleClient {
     final client = HytaleClient._(
       launcherOptions: options,
       oauthClient: oauthClient,
-      launcherData: ,
       dio: dio,
     );
 
-    return client;
+    final data = await client.accounts.fetchLauncherData();
+
+    return client..launcherData = data;
   }
 }
 
 class LauncherOptions {
-  /// The path to the root of the launcher
   final String basePath;
   const LauncherOptions({required this.basePath});
 }

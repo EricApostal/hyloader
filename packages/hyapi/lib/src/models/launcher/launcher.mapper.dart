@@ -16,6 +16,7 @@ class LauncherDataMapper extends ClassMapperBase<LauncherData> {
       MapperContainer.globals.use(_instance = LauncherDataMapper._());
       PatchTrackMapper.ensureInitialized();
       PatchlineMapper.ensureInitialized();
+      HytaleProfileMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -29,10 +30,16 @@ class LauncherDataMapper extends ClassMapperBase<LauncherData> {
       v.patchlines;
   static const Field<LauncherData, Map<PatchTrack, Patchline>> _f$patchlines =
       Field('patchlines', _$patchlines);
+  static List<HytaleProfile> _$profiles(LauncherData v) => v.profiles;
+  static const Field<LauncherData, List<HytaleProfile>> _f$profiles = Field(
+    'profiles',
+    _$profiles,
+  );
   static DateTime? _$eulaAcceptedAt(LauncherData v) => v.eulaAcceptedAt;
   static const Field<LauncherData, DateTime> _f$eulaAcceptedAt = Field(
     'eulaAcceptedAt',
     _$eulaAcceptedAt,
+    key: r'eula_accepted_at',
     opt: true,
   );
 
@@ -40,6 +47,7 @@ class LauncherDataMapper extends ClassMapperBase<LauncherData> {
   final MappableFields<LauncherData> fields = const {
     #owner: _f$owner,
     #patchlines: _f$patchlines,
+    #profiles: _f$profiles,
     #eulaAcceptedAt: _f$eulaAcceptedAt,
   };
 
@@ -47,6 +55,7 @@ class LauncherDataMapper extends ClassMapperBase<LauncherData> {
     return LauncherData(
       owner: data.dec(_f$owner),
       patchlines: data.dec(_f$patchlines),
+      profiles: data.dec(_f$profiles),
       eulaAcceptedAt: data.dec(_f$eulaAcceptedAt),
     );
   }
@@ -120,9 +129,16 @@ abstract class LauncherDataCopyWith<$R, $In extends LauncherData, $Out>
     PatchlineCopyWith<$R, Patchline, Patchline>
   >
   get patchlines;
+  ListCopyWith<
+    $R,
+    HytaleProfile,
+    HytaleProfileCopyWith<$R, HytaleProfile, HytaleProfile>
+  >
+  get profiles;
   $R call({
     String? owner,
     Map<PatchTrack, Patchline>? patchlines,
+    List<HytaleProfile>? profiles,
     DateTime? eulaAcceptedAt,
   });
   LauncherDataCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
@@ -149,14 +165,27 @@ class _LauncherDataCopyWithImpl<$R, $Out>
     (v) => call(patchlines: v),
   );
   @override
+  ListCopyWith<
+    $R,
+    HytaleProfile,
+    HytaleProfileCopyWith<$R, HytaleProfile, HytaleProfile>
+  >
+  get profiles => ListCopyWith(
+    $value.profiles,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(profiles: v),
+  );
+  @override
   $R call({
     String? owner,
     Map<PatchTrack, Patchline>? patchlines,
+    List<HytaleProfile>? profiles,
     Object? eulaAcceptedAt = $none,
   }) => $apply(
     FieldCopyWithData({
       if (owner != null) #owner: owner,
       if (patchlines != null) #patchlines: patchlines,
+      if (profiles != null) #profiles: profiles,
       if (eulaAcceptedAt != $none) #eulaAcceptedAt: eulaAcceptedAt,
     }),
   );
@@ -164,6 +193,7 @@ class _LauncherDataCopyWithImpl<$R, $Out>
   LauncherData $make(CopyWithData data) => LauncherData(
     owner: data.get(#owner, or: $value.owner),
     patchlines: data.get(#patchlines, or: $value.patchlines),
+    profiles: data.get(#profiles, or: $value.profiles),
     eulaAcceptedAt: data.get(#eulaAcceptedAt, or: $value.eulaAcceptedAt),
   );
 
