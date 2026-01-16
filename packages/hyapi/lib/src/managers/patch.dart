@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:hyapi/src/managers/manager.dart';
 import 'package:hyapi/src/models/patch/patch_steps.dart';
 import 'package:hyapi/src/utils/parsing_helpers.dart';
