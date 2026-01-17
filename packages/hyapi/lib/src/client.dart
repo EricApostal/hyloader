@@ -63,7 +63,16 @@ class HytaleClient {
 
     final data = await client.accounts.fetchLauncherData();
 
-    return client..launcherData = data;
+    // TODO: I need to refresh creds
+    // final user = ClientUser(
+    //   ownerId: data.owner,
+    //   credentials: oauthClient.credentials,
+    // );
+
+    client.launcherData = data;
+    client.clientUser = user;
+
+    return client;
   }
 
   static void _addTokenRefreshInterceptor(Dio dio, ClientUser user) {

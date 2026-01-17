@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:hyapi/hyapi.dart';
 import 'package:hyloader/features/authentication/repositories/client.dart';
 import 'package:hyloader/features/storage/storage.dart';
 import 'package:wharf_flutter/generated/frb_generated.dart';
@@ -23,13 +24,15 @@ class MainApp extends ConsumerWidget {
         body: Center(
           child: FilledButton(
             onPressed: () async {
-              final client = await ref
+              HytaleClient? client = await ref
                   .read(clientControllerProvider.notifier)
                   .tryRestoreSession();
               if (client == null) {
-                await ref.read(clientControllerProvider.notifier).login();
+                client = await ref
+                    .read(clientControllerProvider.notifier)
+                    .login();
               }
-              // print(await client.patches.listPatchSteps(0));
+              print(await client.patches.listPatchSteps(0));
 
               // ignore: dead_code
               // if (doLaunch) {
