@@ -63,6 +63,8 @@ class HytaleClient {
     Credentials credentials = user.credentials;
     if (credentials.isExpired) {
       credentials = await credentials.refresh(identifier: clientId);
+      dio.options.headers["Authorization"] =
+          "Bearer ${credentials.accessToken}";
     }
 
     final newUser = ClientUser(ownerId: user.ownerId, credentials: credentials);
