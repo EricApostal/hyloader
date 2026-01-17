@@ -26,10 +26,10 @@ class LauncherDataMapper extends ClassMapperBase<LauncherData> {
 
   static String _$owner(LauncherData v) => v.owner;
   static const Field<LauncherData, String> _f$owner = Field('owner', _$owner);
-  static Map<PatchTrack, Patchline> _$patchlines(LauncherData v) =>
+  static Map<PatchTrack, Patchline>? _$patchlines(LauncherData v) =>
       v.patchlines;
   static const Field<LauncherData, Map<PatchTrack, Patchline>> _f$patchlines =
-      Field('patchlines', _$patchlines);
+      Field('patchlines', _$patchlines, opt: true);
   static List<HytaleProfile> _$profiles(LauncherData v) => v.profiles;
   static const Field<LauncherData, List<HytaleProfile>> _f$profiles = Field(
     'profiles',
@@ -127,7 +127,7 @@ abstract class LauncherDataCopyWith<$R, $In extends LauncherData, $Out>
     PatchTrack,
     Patchline,
     PatchlineCopyWith<$R, Patchline, Patchline>
-  >
+  >?
   get patchlines;
   ListCopyWith<
     $R,
@@ -158,12 +158,14 @@ class _LauncherDataCopyWithImpl<$R, $Out>
     PatchTrack,
     Patchline,
     PatchlineCopyWith<$R, Patchline, Patchline>
-  >
-  get patchlines => MapCopyWith(
-    $value.patchlines,
-    (v, t) => v.copyWith.$chain(t),
-    (v) => call(patchlines: v),
-  );
+  >?
+  get patchlines => $value.patchlines != null
+      ? MapCopyWith(
+          $value.patchlines!,
+          (v, t) => v.copyWith.$chain(t),
+          (v) => call(patchlines: v),
+        )
+      : null;
   @override
   ListCopyWith<
     $R,
@@ -178,13 +180,13 @@ class _LauncherDataCopyWithImpl<$R, $Out>
   @override
   $R call({
     String? owner,
-    Map<PatchTrack, Patchline>? patchlines,
+    Object? patchlines = $none,
     List<HytaleProfile>? profiles,
     Object? eulaAcceptedAt = $none,
   }) => $apply(
     FieldCopyWithData({
       if (owner != null) #owner: owner,
-      if (patchlines != null) #patchlines: patchlines,
+      if (patchlines != $none) #patchlines: patchlines,
       if (profiles != null) #profiles: profiles,
       if (eulaAcceptedAt != $none) #eulaAcceptedAt: eulaAcceptedAt,
     }),

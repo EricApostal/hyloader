@@ -1,18 +1,21 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:hyapi/hyapi.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:hyloader/features/authentication/repositories/client.dart';
+import 'package:hyloader/features/storage/storage.dart';
 import 'package:wharf_flutter/generated/frb_generated.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await RustLib.init();
-  runApp(const MainApp());
+  await StorageManager.init();
+  runApp(const ProviderScope(child: MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       themeMode: .dark,
       theme: ThemeData.dark(),
@@ -20,14 +23,13 @@ class MainApp extends StatelessWidget {
         body: Center(
           child: FilledButton(
             onPressed: () async {
-              final baseDocumentDirectory =
-                  await getApplicationDocumentsDirectory();
-              final basePath = "${baseDocumentDirectory.path}/hyloader";
-              final client = await HytaleClient.login(
-                options: LauncherOptions(basePath: basePath),
-              );
-
-              print(await client.patches.listPatchSteps(0));
+              final client = await ref
+                  .read(clientControllerProvider.notifier)
+                  .tryRestoreSession();
+              if (client == null) {
+                await ref.read(clientControllerProvider.notifier).login();
+              }
+              // print(await client.patches.listPatchSteps(0));
 
               // ignore: dead_code
               // if (doLaunch) {

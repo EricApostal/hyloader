@@ -7,7 +7,7 @@ part 'launcher.mapper.dart';
 @MappableClass()
 class LauncherData with LauncherDataMappable {
   final String owner;
-  final Map<PatchTrack, Patchline> patchlines;
+  final Map<PatchTrack, Patchline>? patchlines;
   final List<HytaleProfile> profiles;
   // todo: I'm guessing this is nullable
   // also bro who cooked and decided on snake case here
@@ -15,7 +15,7 @@ class LauncherData with LauncherDataMappable {
   final DateTime? eulaAcceptedAt;
   const LauncherData({
     required this.owner,
-    required this.patchlines,
+    this.patchlines,
     required this.profiles,
     this.eulaAcceptedAt,
   });

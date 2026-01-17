@@ -22,6 +22,7 @@ dependencies:
   process_run: ^1.2.4
   flutter_riverpod: ^3.2.0
   riverpod_annotation: ^4.0.1
+  hive_ce: ^2.18.0
 
 flutter:
   uses-material-design: true
@@ -32,4 +33,4 @@ dev_dependencies:
 
 dependency_overrides:
   analyzer_buffer: ^0.3.0
-  analyzer: ^9.0.0
+  analyzer: ^8.4.1

@@ -9,15 +9,11 @@ import 'package:hyapi/src/models/launcher/launcher.dart';
 
 class HytaleClient {
   final LauncherOptions launcherOptions;
-  final ClientUser clientUser;
+  late final ClientUser clientUser;
   final Dio dio;
   late final LauncherData launcherData;
 
-  HytaleClient._({
-    required this.launcherOptions,
-    required this.clientUser,
-    required this.dio,
-  });
+  HytaleClient._({required this.launcherOptions, required this.dio});
 
   LauncherManager get launcher => LauncherManager(client: this);
   PatchManager get patches => PatchManager(client: this);
@@ -26,25 +22,29 @@ class HytaleClient {
 
   static Future<HytaleClient> login({required LauncherOptions options}) async {
     final oauthClient = await runOAuthFlow();
-    final user = ClientUser(credentials: oauthClient.credentials);
 
     final dio = Dio(
       BaseOptions(
-        headers: {"Authorization": "Bearer ${user.credentials.accessToken}"},
+        headers: {
+          "Authorization": "Bearer ${oauthClient.credentials.accessToken}",
+        },
       ),
+    );
+
+    final client = HytaleClient._(launcherOptions: options, dio: dio);
+
+    final data = await client.accounts.fetchLauncherData();
+    final user = ClientUser(
+      ownerId: data.owner,
+      credentials: oauthClient.credentials,
     );
 
     _addTokenRefreshInterceptor(dio, user);
 
-    final client = HytaleClient._(
-      launcherOptions: options,
-      clientUser: user,
-      dio: dio,
-    );
+    client.launcherData = data;
+    client.clientUser = user;
 
-    final data = await client.accounts.fetchLauncherData();
-
-    return client..launcherData = data;
+    return client;
   }
 
   static Future<HytaleClient> loginWithUser({
@@ -59,11 +59,7 @@ class HytaleClient {
 
     _addTokenRefreshInterceptor(dio, user);
 
-    final client = HytaleClient._(
-      launcherOptions: options,
-      clientUser: user,
-      dio: dio,
-    );
+    final client = HytaleClient._(launcherOptions: options, dio: dio);
 
     final data = await client.accounts.fetchLauncherData();
 

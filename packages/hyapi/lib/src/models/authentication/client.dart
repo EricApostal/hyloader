@@ -7,8 +7,9 @@ part 'client.mapper.dart';
 
 @MappableClass(includeCustomMappers: [CredentialsMapper()])
 class ClientUser with ClientUserMappable {
+  final String ownerId;
   final Credentials credentials;
-  const ClientUser({required this.credentials});
+  const ClientUser({required this.ownerId, required this.credentials});
 }
 
 class CredentialsMapper extends SimpleMapper<Credentials> {

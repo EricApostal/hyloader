@@ -22,6 +22,11 @@ class ClientUserMapper extends ClassMapperBase<ClientUser> {
   @override
   final String id = 'ClientUser';
 
+  static String _$ownerId(ClientUser v) => v.ownerId;
+  static const Field<ClientUser, String> _f$ownerId = Field(
+    'ownerId',
+    _$ownerId,
+  );
   static Credentials _$credentials(ClientUser v) => v.credentials;
   static const Field<ClientUser, Credentials> _f$credentials = Field(
     'credentials',
@@ -30,11 +35,15 @@ class ClientUserMapper extends ClassMapperBase<ClientUser> {
 
   @override
   final MappableFields<ClientUser> fields = const {
+    #ownerId: _f$ownerId,
     #credentials: _f$credentials,
   };
 
   static ClientUser _instantiate(DecodingData data) {
-    return ClientUser(credentials: data.dec(_f$credentials));
+    return ClientUser(
+      ownerId: data.dec(_f$ownerId),
+      credentials: data.dec(_f$credentials),
+    );
   }
 
   @override
@@ -97,7 +106,7 @@ extension ClientUserValueCopy<$R, $Out>
 
 abstract class ClientUserCopyWith<$R, $In extends ClientUser, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({Credentials? credentials});
+  $R call({String? ownerId, Credentials? credentials});
   ClientUserCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -110,12 +119,17 @@ class _ClientUserCopyWithImpl<$R, $Out>
   late final ClassMapperBase<ClientUser> $mapper =
       ClientUserMapper.ensureInitialized();
   @override
-  $R call({Credentials? credentials}) => $apply(
-    FieldCopyWithData({if (credentials != null) #credentials: credentials}),
+  $R call({String? ownerId, Credentials? credentials}) => $apply(
+    FieldCopyWithData({
+      if (ownerId != null) #ownerId: ownerId,
+      if (credentials != null) #credentials: credentials,
+    }),
   );
   @override
-  ClientUser $make(CopyWithData data) =>
-      ClientUser(credentials: data.get(#credentials, or: $value.credentials));
+  ClientUser $make(CopyWithData data) => ClientUser(
+    ownerId: data.get(#ownerId, or: $value.ownerId),
+    credentials: data.get(#credentials, or: $value.credentials),
+  );
 
   @override
   ClientUserCopyWith<$R2, ClientUser, $Out2> $chain<$R2, $Out2>(
