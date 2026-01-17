@@ -3,9 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hyapi/hyapi.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:process_run/process_run.dart';
 import 'package:wharf_flutter/generated/frb_generated.dart';
-import 'package:wharf_flutter/wharf_flutter.dart';
 
 void main() async {
   await RustLib.init();
@@ -17,8 +15,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // temp will be moved to hyapi
-    final doLaunch = false;
     return MaterialApp(
       themeMode: .dark,
       theme: ThemeData.dark(),
@@ -33,50 +29,6 @@ class MainApp extends StatelessWidget {
                 options: LauncherOptions(basePath: basePath),
               );
 
-              final patched = await client.patches.listPatchSteps();
-              print("got patched = $patched");
-              final launcherData = await client.accounts.fetchLauncherData();
-              print("launcher data = ${launcherData}");
-              final session = await client.sessions.create();
-              print("got session = ${session}");
-
-              final patchPath = "$basePath/downloads/patch.pwr";
-              final sigPath = "$basePath/downloads/patch.pwr.sig";
-              final step = patched.first;
-
-              print("fetching binary...");
-              // I'll need a way of figuring out what binary is which
-              // the patches do work (as I understand) but I'm not convinced that hytale
-              // actually uses them lol
-              // await client.patches.downloadPatch(
-              //   currentPatch: 0, // step.from,
-              //   latestPatch: step.to,
-              //   savePath: patchPath,
-              // );
-
-              // await client.patches.downloadSig(
-              //   currentPatch: 0, // step.from,
-              //   latestPatch: step.to,
-              //   savePath: sigPath,
-              // );
-
-              print("fetched binary!");
-
-              final patchFile = File(patchPath);
-              final sigFile = File(sigPath);
-
-              final newFile = await File("$basePath/game");
-              //..create();
-
-              final oldFile = await File("$basePath/placeholder");
-              //..create();
-
-              WharfService.patch(
-                patchFile: patchFile,
-                sigFile: sigFile,
-                oldFile: oldFile,
-                newFile: newFile,
-              );
               // ignore: dead_code
               // if (doLaunch) {
               //   final profile = client.launcherData.profiles.first;

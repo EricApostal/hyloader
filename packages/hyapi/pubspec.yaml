@@ -1,5 +1,6 @@
 name: hyapi
-description: "A new Flutter package project."
+description: "Backend Hytale Launcher API for Hyloader"
+publish_to: none
 version: 0.0.1
 homepage:
 
@@ -16,6 +17,9 @@ dependencies:
   hive_ce: ^2.17.0
   oauth2: ^2.0.5
   url_launcher: ^6.3.2
+  wharf_flutter:
+    path:
+      ../wharf_flutter
 
 dev_dependencies:
   flutter_test:
