@@ -4,18 +4,18 @@ import 'package:hyapi/src/managers/account.dart';
 import 'package:hyapi/src/managers/launcher.dart';
 import 'package:hyapi/src/managers/patch.dart';
 import 'package:hyapi/src/managers/session.dart';
+import 'package:hyapi/src/models/authentication/client.dart';
 import 'package:hyapi/src/models/launcher/launcher.dart';
-import 'package:oauth2/oauth2.dart';
 
 class HytaleClient {
   final LauncherOptions launcherOptions;
-  final Client oauthClient;
+  final ClientUser clientUser;
   final Dio dio;
   late final LauncherData launcherData;
 
   HytaleClient._({
     required this.launcherOptions,
-    required this.oauthClient,
+    required this.clientUser,
     required this.dio,
   });
 
@@ -36,7 +36,7 @@ class HytaleClient {
 
     final client = HytaleClient._(
       launcherOptions: options,
-      oauthClient: oauthClient,
+      clientUser: ClientUser(credentials: oauthClient.credentials),
       dio: dio,
     );
 
