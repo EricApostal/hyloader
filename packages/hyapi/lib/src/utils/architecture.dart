@@ -5,7 +5,7 @@ String getArchitecture() {
 
   if (versionString.contains('arm64')) return 'arm64';
   if (versionString.contains('x64') || versionString.contains('x86_64')) {
-    return 'x86_64';
+    return 'amd64';
   }
   if (versionString.contains('arm')) return 'arm';
 

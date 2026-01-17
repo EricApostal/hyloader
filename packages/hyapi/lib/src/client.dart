@@ -26,17 +26,19 @@ class HytaleClient {
 
   static Future<HytaleClient> login({required LauncherOptions options}) async {
     final oauthClient = await runOAuthFlow();
+    final user = ClientUser(credentials: oauthClient.credentials);
+
     final dio = Dio(
       BaseOptions(
-        headers: {
-          "Authorization": "Bearer ${oauthClient.credentials.accessToken}",
-        },
+        headers: {"Authorization": "Bearer ${user.credentials.accessToken}"},
       ),
     );
 
+    _addTokenRefreshInterceptor(dio, user);
+
     final client = HytaleClient._(
       launcherOptions: options,
-      clientUser: ClientUser(credentials: oauthClient.credentials),
+      clientUser: user,
       dio: dio,
     );
 
@@ -55,6 +57,8 @@ class HytaleClient {
       ),
     );
 
+    _addTokenRefreshInterceptor(dio, user);
+
     final client = HytaleClient._(
       launcherOptions: options,
       clientUser: user,
@@ -64,6 +68,32 @@ class HytaleClient {
     final data = await client.accounts.fetchLauncherData();
 
     return client..launcherData = data;
+  }
+
+  static void _addTokenRefreshInterceptor(Dio dio, ClientUser user) {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onError: (DioException error, ErrorInterceptorHandler handler) async {
+          if (error.response?.statusCode == 401) {
+            try {
+              final newCredentials = await user.credentials.refresh();
+              final newToken = newCredentials.accessToken;
+
+              dio.options.headers["Authorization"] = "Bearer $newToken";
+
+              final options = error.requestOptions;
+              options.headers["Authorization"] = "Bearer $newToken";
+              final response = await dio.fetch(options);
+              return handler.resolve(response);
+            } catch (e) {
+              print("dio error: $e");
+              return handler.next(error);
+            }
+          }
+          return handler.next(error);
+        },
+      ),
+    );
   }
 }
 

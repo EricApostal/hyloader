@@ -27,6 +27,8 @@ class MainApp extends StatelessWidget {
                 options: LauncherOptions(basePath: basePath),
               );
 
+              print(await client.patches.listPatchSteps(0));
+
               // ignore: dead_code
               // if (doLaunch) {
               //   final profile = client.launcherData.profiles.first;
