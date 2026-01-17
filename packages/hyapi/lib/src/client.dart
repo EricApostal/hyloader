@@ -44,6 +44,27 @@ class HytaleClient {
 
     return client..launcherData = data;
   }
+
+  static Future<HytaleClient> loginWithUser({
+    required LauncherOptions options,
+    required ClientUser user,
+  }) async {
+    final dio = Dio(
+      BaseOptions(
+        headers: {"Authorization": "Bearer ${user.credentials.accessToken}"},
+      ),
+    );
+
+    final client = HytaleClient._(
+      launcherOptions: options,
+      clientUser: user,
+      dio: dio,
+    );
+
+    final data = await client.accounts.fetchLauncherData();
+
+    return client..launcherData = data;
+  }
 }
 
 class LauncherOptions {
