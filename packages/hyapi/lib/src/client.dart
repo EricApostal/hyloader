@@ -6,6 +6,7 @@ import 'package:hyapi/src/managers/patch.dart';
 import 'package:hyapi/src/managers/session.dart';
 import 'package:hyapi/src/models/authentication/client.dart';
 import 'package:hyapi/src/models/launcher/launcher.dart';
+import 'package:oauth2/oauth2.dart';
 
 class HytaleClient {
   final LauncherOptions launcherOptions;
@@ -57,20 +58,20 @@ class HytaleClient {
       ),
     );
 
-    _addTokenRefreshInterceptor(dio, user);
-
     final client = HytaleClient._(launcherOptions: options, dio: dio);
 
+    Credentials credentials = user.credentials;
+    if (credentials.isExpired) {
+      credentials = await credentials.refresh();
+    }
+
+    final newUser = ClientUser(ownerId: user.ownerId, credentials: credentials);
+    client.clientUser = newUser;
+
+    _addTokenRefreshInterceptor(dio, newUser);
     final data = await client.accounts.fetchLauncherData();
 
-    // TODO: I need to refresh creds
-    // final user = ClientUser(
-    //   ownerId: data.owner,
-    //   credentials: oauthClient.credentials,
-    // );
-
     client.launcherData = data;
-    client.clientUser = user;
 
     return client;
   }
