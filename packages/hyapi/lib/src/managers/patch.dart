@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:hyapi/src/managers/manager.dart';
 import 'package:hyapi/src/models/patch/patch_steps.dart';
 import 'package:hyapi/src/models/patch/patchline.dart';
-import 'package:hyapi/src/utils/architecture.dart';
+import 'package:hyapi/src/utils/system.dart';
 import 'package:hyapi/src/utils/parsing_helpers.dart';
 import 'package:wharf_flutter/wharf_flutter.dart';
 
@@ -16,7 +16,7 @@ class PatchManager extends Manager {
     PatchTrack track = .release,
   }) async {
     final response = await client.dio.get(
-      "https://account-data.hytale.com/patches/linux/${getArchitecture()}/${track.toValue()}/$currentPatch",
+      "https://account-data.hytale.com/patches/${getOs()}/${getArchitecture()}/${track.toValue()}/$currentPatch",
     );
 
     return parseMany(response.data["steps"], PatchStepMapper.fromMap);
