@@ -7,6 +7,8 @@ import 'dart:io';
 import 'package:oauth2/oauth2.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+const clientId = "hytale-launcher";
+
 Future<Client> runOAuthFlow() async {
   final authorizationEndpoint = Uri.parse(
     'https://oauth.accounts.hytale.com/oauth2/auth',
@@ -15,8 +17,6 @@ Future<Client> runOAuthFlow() async {
   final accessTokenUrl = Uri.parse(
     "https://oauth.accounts.hytale.com/oauth2/token",
   );
-
-  final clientId = "hytale-launcher";
 
   final grant = AuthorizationCodeGrant(
     clientId,

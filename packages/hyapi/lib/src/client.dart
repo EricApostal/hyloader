@@ -62,7 +62,7 @@ class HytaleClient {
 
     Credentials credentials = user.credentials;
     if (credentials.isExpired) {
-      credentials = await credentials.refresh();
+      credentials = await credentials.refresh(identifier: clientId);
     }
 
     final newUser = ClientUser(ownerId: user.ownerId, credentials: credentials);
@@ -82,7 +82,9 @@ class HytaleClient {
         onError: (DioException error, ErrorInterceptorHandler handler) async {
           if (error.response?.statusCode == 401) {
             try {
-              final newCredentials = await user.credentials.refresh();
+              final newCredentials = await user.credentials.refresh(
+                identifier: clientId,
+              );
               final newToken = newCredentials.accessToken;
 
               dio.options.headers["Authorization"] = "Bearer $newToken";
