@@ -13,7 +13,7 @@ class LauncherManager extends Manager {
         print('Patch Download: ${(count / total * 100).toStringAsFixed(0)}%');
       },
       onPatchProgress: (count, total) {
-        print('Patching: ${(count / total * 100).toStringAsFixed(0)}%');
+        print('Patching: $count / $total');
       },
     );
     final session = await client.sessions.create();
@@ -23,13 +23,19 @@ class LauncherManager extends Manager {
     final identityToken = session.identityToken;
     final sessionToken = session.sessionToken;
 
-    final instancePath =
-        "${client.launcherOptions.basePath}/instances/${instance.id}";
+    // todo: This needs to be by version, not instance id
+    // final instancePath =
+    //     "${client.launcherOptions.basePath}/instances/${instance.id}";
+    final instancePath = client.launcherOptions.basePath;
     final dataPath = "$instancePath/gamedata";
     await Directory(dataPath).create(recursive: true);
 
     // todo: macos will need some special handling
-    final clientPath = "$instancePath/game/Client/HytaleClient";
+    String clientPath = "$instancePath/game/Client/HytaleClient";
+    if (Platform.isMacOS) {
+      clientPath =
+          "$instancePath/game/Client/Hytale.app/Contents/MacOS/HytaleClient";
+    }
 
     // there's a --user-dir and --app-dir flag
     // I don't know what app dir does, but I really don't know what user dir means

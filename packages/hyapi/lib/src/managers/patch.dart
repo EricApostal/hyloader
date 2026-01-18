@@ -58,7 +58,7 @@ class PatchManager extends Manager {
     final currentPatch = 0;
 
     final patched = await client.patches.listPatchSteps(0);
-    final base = "${client.launcherOptions.basePath}/instances";
+    final base = client.launcherOptions.basePath;
 
     // this can be a list, so it's possible patches will need to be hopped between
     // ie: you can't go from patch 2 -> 15, but you can go from 2->7, then 7->15

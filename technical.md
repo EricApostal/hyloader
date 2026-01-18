@@ -28,4 +28,3 @@ Okay yes it's wharf, I can gen bindings from https://crates.io/crates/scratch-io
 I am tying the oauth client to the HytaleClient itself
 I think we should register dio middleware for oauth check & refresh
 that or our own client middleware doesn't matter a ton
-
