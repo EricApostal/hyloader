@@ -21,8 +21,14 @@ class _InstancesListState extends ConsumerState<InstancesList> {
 
     return ListView.builder(
       itemCount: items.length,
+      padding: .symmetric(vertical: 8),
       itemBuilder: (context, index) {
-        return InstanceCard(instance: items[index]);
+        return Center(
+          child: SizedBox(
+            width: 300,
+            child: InstanceCard(instance: items[index]),
+          ),
+        );
       },
     );
   }

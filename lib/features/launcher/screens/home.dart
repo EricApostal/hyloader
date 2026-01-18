@@ -16,19 +16,10 @@ class _LauncherScreenState extends ConsumerState<LauncherScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: [
-          Positioned.fill(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              // child: Column(
-              //   crossAxisAlignment: .start,
-              //   children: [Text("Hyloader", style: theme.textTheme.titleLarge)],
-              // ),
-              child: InstancesList(),
-            ),
-          ),
-          Positioned(right: 24, bottom: 24, child: PlayButton()),
+          SizedBox(),
+          Expanded(child: InstancesList()),
         ],
       ),
     );

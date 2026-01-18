@@ -18,7 +18,8 @@ class _PlayButtonState extends ConsumerState<PlayButton> {
       onTap: () async {
         HapticFeedback.lightImpact();
         final client = ref.watch(clientControllerProvider)!;
-        await client.launcher.launchHytale();
+        print("probs needs to remove this button because no instance");
+        // await client.launcher.launchHytale();
       },
       child: Container(
         width: 200,
