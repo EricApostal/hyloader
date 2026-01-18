@@ -5,7 +5,7 @@ class LauncherManager extends Manager {
   const LauncherManager({required super.client});
 
   Future<void> launchHytale() async {
-    await client.patches.downloadAndApplyLatestPatch();
+    // await client.patches.downloadAndApplyLatestPatch();
     final session = await client.sessions.create();
     final profile = client.launcherData.profiles.first;
     final name = profile.username;
@@ -13,12 +13,12 @@ class LauncherManager extends Manager {
     final identityToken = session.identityToken;
     final sessionToken = session.sessionToken;
 
-    // todo:  macos will need some special handling
+    // todo: macos will need some special handling
     final clientPath =
         "${client.launcherOptions.basePath}/instances/game/Client/HytaleClient";
 
     final command =
-        "$clientPath --name $name --uuid $uuid --identity-token $identityToken --session-token $sessionToken";
+        "$clientPath --name $name --uuid $uuid --identity-token $identityToken --session-token $sessionToken --auth-mode insecure";
 
     final shell = Shell();
 

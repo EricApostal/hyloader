@@ -26,6 +26,7 @@ class PatchManager extends Manager {
     required int currentPatch,
     required int latestPatch,
     required String savePath,
+    void Function(int, int)? onReceiveProgress,
   }) async {
     final uri =
         "https://game-patches.hytale.com/patches/${getOs()}/${getArchitecture()}/release/$currentPatch/$latestPatch.pwr";
@@ -53,7 +54,10 @@ class PatchManager extends Manager {
     await client.dio.download(uri, savePath);
   }
 
-  Future<void> downloadAndApplyLatestPatch() async {
+  Future<void> downloadAndApplyLatestPatch({
+    void Function(int, int)? onPatchProgress,
+    void Function(int, int)? onPatchDownloadProgress,
+  }) async {
     // idk how to check for existing, maybe a sig or smth but not sure if that works
     // actually this is probably a trust me bro and I store it in hive
     final currentPatch = 0;
@@ -67,12 +71,12 @@ class PatchManager extends Manager {
     final latestPatch = patched.first.to;
     final patchPath = "$base/downloads/patch-$latestPatch.pwr";
     final sigPath = "$base/downloads/patch-$latestPatch.pwr.sig";
-    print("sig path = $sigPath");
 
     await downloadPatch(
       currentPatch: currentPatch,
       latestPatch: latestPatch,
       savePath: patchPath,
+      onReceiveProgress: onPatchDownloadProgress,
     );
 
     await downloadSig(
@@ -93,9 +97,7 @@ class PatchManager extends Manager {
       // yeah yeah the types are dookie will fix
       oldFile: File(oldFolder.path),
       newFile: File(newFolder.path),
-      onReceiveProgress: (count, total) {
-        print("Patching: $count bytes");
-      },
+      onReceiveProgress: onPatchProgress,
     );
   }
 }
