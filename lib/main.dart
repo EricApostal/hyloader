@@ -1,8 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:go_transitions/go_transitions.dart';
 import 'package:hyapi/hyapi.dart';
 import 'package:hyloader/features/authentication/repositories/client.dart';
 import 'package:hyloader/features/storage/storage.dart';
+import 'package:hyloader/theme/light.dart';
+import 'package:hyloader/theme/dark.dart';
+import 'package:hyloader/theme/text.dart';
 import 'package:wharf_flutter/generated/frb_generated.dart';
 
 void main() async {
@@ -17,9 +21,29 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final pageTransition = const PageTransitionsTheme(
+      builders: {
+        // TargetPlatform.android: GoTransitions.material,
+        TargetPlatform.fuchsia: GoTransitions.none,
+        TargetPlatform.iOS: GoTransitions.none,
+        TargetPlatform.linux: GoTransitions.none,
+        TargetPlatform.macOS: GoTransitions.none,
+        TargetPlatform.windows: GoTransitions.none,
+      },
+    );
+
     return MaterialApp(
       themeMode: .dark,
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        colorScheme: lightColorScheme,
+        textTheme: getBaseTextTheme(),
+        pageTransitionsTheme: pageTransition,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: darkColorScheme,
+        textTheme: getBaseTextTheme(),
+        pageTransitionsTheme: pageTransition,
+      ),
       home: Scaffold(
         body: Center(
           child: FilledButton(
