@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hyloader/features/authentication/repositories/client.dart';
 
 class PlayButton extends ConsumerStatefulWidget {
   const PlayButton({super.key});
@@ -11,11 +13,21 @@ class PlayButton extends ConsumerStatefulWidget {
 class _PlayButtonState extends ConsumerState<PlayButton> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
-      decoration: BoxDecoration(color: Colors.greenAccent),
-
-      child: Padding(padding: .all(20), child: Text("Play")),
+    return InkWell(
+      borderRadius: .circular(12),
+      onTap: () async {
+        HapticFeedback.lightImpact();
+        final client = ref.watch(clientControllerProvider)!;
+        await client.launcher.launchHytale();
+      },
+      child: Container(
+        width: 200,
+        decoration: BoxDecoration(
+          color: Colors.green,
+          borderRadius: .circular(12),
+        ),
+        child: Padding(padding: .all(15), child: Text("Play")),
+      ),
     );
   }
 }

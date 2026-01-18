@@ -28,7 +28,7 @@ class PatchManager extends Manager {
     required String savePath,
   }) async {
     final uri =
-        "https://game-patches.hytale.com/patches/linux/amd64/release/$currentPatch/$latestPatch.pwr";
+        "https://game-patches.hytale.com/patches/${getOs()}/${getArchitecture()}/release/$currentPatch/$latestPatch.pwr";
 
     await client.dio.download(
       uri,
@@ -48,7 +48,7 @@ class PatchManager extends Manager {
     required String savePath,
   }) async {
     final uri =
-        "https://game-patches.hytale.com/patches/linux/amd64/release/$currentPatch/$latestPatch.pwr.sig";
+        "https://game-patches.hytale.com/patches/${getOs()}/${getArchitecture()}/release/$currentPatch/$latestPatch.pwr.sig";
 
     await client.dio.download(uri, savePath);
   }
@@ -67,6 +67,7 @@ class PatchManager extends Manager {
     final latestPatch = patched.first.to;
     final patchPath = "$base/downloads/patch-$latestPatch.pwr";
     final sigPath = "$base/downloads/patch-$latestPatch.pwr.sig";
+    print("sig path = $sigPath");
 
     await downloadPatch(
       currentPatch: currentPatch,

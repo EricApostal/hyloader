@@ -12,9 +12,21 @@ class LauncherScreen extends ConsumerStatefulWidget {
 class _LauncherScreenState extends ConsumerState<LauncherScreen> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: Stack(
-        children: [Positioned(right: 36, bottom: 36, child: PlayButton())],
+        children: [
+          Positioned.fill(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              // child: Column(
+              //   crossAxisAlignment: .start,
+              //   children: [Text("Hyloader", style: theme.textTheme.titleLarge)],
+              // ),
+            ),
+          ),
+          Positioned(right: 24, bottom: 24, child: PlayButton()),
+        ],
       ),
     );
   }

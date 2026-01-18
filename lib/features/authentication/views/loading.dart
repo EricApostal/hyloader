@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hyloader/features/authentication/repositories/client.dart';
 import 'package:hyloader/features/authentication/services/login.dart';
 
 class PendingAuthScreen extends ConsumerStatefulWidget {
@@ -19,8 +18,6 @@ class _PendingAuthScreenState extends ConsumerState<PendingAuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final client = ref.watch(clientControllerProvider);
-
     return Scaffold(body: Center(child: Text("Loading")));
   }
 }
