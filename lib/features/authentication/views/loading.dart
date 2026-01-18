@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hyloader/features/authentication/repositories/client.dart';
+import 'package:hyloader/features/authentication/services/login.dart';
 
-class PendingAuthScreen extends ConsumerWidget {
+class PendingAuthScreen extends ConsumerStatefulWidget {
   const PendingAuthScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PendingAuthScreen> createState() => _PendingAuthScreenState();
+}
+
+class _PendingAuthScreenState extends ConsumerState<PendingAuthScreen> {
+  @override
+  void initState() {
+    super.initState();
+    LoginService.login(ref);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final client = ref.watch(clientControllerProvider);
 
-    return Center(child: Text("Loading"));
+    return Scaffold(body: Center(child: Text("Loading")));
   }
 }

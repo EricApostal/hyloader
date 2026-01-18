@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:go_transitions/go_transitions.dart';
-import 'package:hyapi/hyapi.dart';
-import 'package:hyloader/features/authentication/repositories/client.dart';
+import 'package:hyloader/features/router/controller.dart';
 import 'package:hyloader/features/storage/storage.dart';
 import 'package:hyloader/theme/light.dart';
 import 'package:hyloader/theme/dark.dart';
@@ -16,14 +15,19 @@ void main() async {
   runApp(const ProviderScope(child: MainApp()));
 }
 
-class MainApp extends ConsumerWidget {
+class MainApp extends ConsumerStatefulWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends ConsumerState<MainApp> {
+  @override
+  Widget build(BuildContext context) {
     final pageTransition = const PageTransitionsTheme(
       builders: {
-        // TargetPlatform.android: GoTransitions.material,
+        TargetPlatform.android: GoTransitions.material,
         TargetPlatform.fuchsia: GoTransitions.none,
         TargetPlatform.iOS: GoTransitions.none,
         TargetPlatform.linux: GoTransitions.none,
@@ -32,7 +36,8 @@ class MainApp extends ConsumerWidget {
       },
     );
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: routerController,
       themeMode: .dark,
       theme: ThemeData(
         colorScheme: lightColorScheme,
@@ -43,44 +48,6 @@ class MainApp extends ConsumerWidget {
         colorScheme: darkColorScheme,
         textTheme: getBaseTextTheme(),
         pageTransitionsTheme: pageTransition,
-      ),
-      home: Scaffold(
-        body: Center(
-          child: FilledButton(
-            onPressed: () async {
-              HytaleClient? client = await ref
-                  .read(clientControllerProvider.notifier)
-                  .tryRestoreSession();
-              if (client == null) {
-                client = await ref
-                    .read(clientControllerProvider.notifier)
-                    .login();
-              }
-              print(await client.patches.listPatchSteps(0));
-
-              // ignore: dead_code
-              // if (doLaunch) {
-              //   final profile = client.launcherData.profiles.first;
-              //   final name = profile.username;
-              //   final uuid = profile.id;
-              //   final identityToken = session.identityToken;
-              //   final sessionToken = session.sessionToken;
-
-              //   final clientPath =
-              //       "/home/eric/.var/app/com.hypixel.HytaleLauncher/data/Hytale/install/release/package/game/latest/Client/HytaleClient";
-
-              //   final command =
-              //       "$clientPath --name $name --uuid $uuid --identity-token $identityToken --session-token $sessionToken";
-              //   print("command");
-              //   print(command);
-              //   final shell = Shell();
-
-              //   shell.run(command);
-              // }
-            },
-            child: Text("Start"),
-          ),
-        ),
       ),
     );
   }

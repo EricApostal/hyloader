@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:hyloader/features/authentication/views/loading.dart';
+import 'package:hyloader/features/router/branches/launcher.dart';
 
 final routerController = GoRouter(
   initialLocation: "/login",
@@ -14,12 +15,12 @@ final routerController = GoRouter(
         return child;
       },
       routes: [
-        // StatefulShellRoute.indexedStack(
-        //   builder: (context, state, navigationShell) {
-        //     return navigationShell;
-        //   },
-        //   branches: [channelsNavigationBranch],
-        // ),
+        StatefulShellRoute.indexedStack(
+          builder: (context, state, navigationShell) {
+            return navigationShell;
+          },
+          branches: [launcherNavigationBranch],
+        ),
       ],
     ),
   ],

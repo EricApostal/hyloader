@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hyloader/features/launcher/components/play.dart';
 
 class LauncherScreen extends ConsumerStatefulWidget {
   const LauncherScreen({super.key});
@@ -11,6 +12,10 @@ class LauncherScreen extends ConsumerStatefulWidget {
 class _LauncherScreenState extends ConsumerState<LauncherScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Stack(
+        children: [Positioned(right: 36, bottom: 36, child: PlayButton())],
+      ),
+    );
   }
 }
