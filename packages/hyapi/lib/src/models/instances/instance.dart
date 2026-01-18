@@ -26,6 +26,7 @@ class HytaleInstanceBuilder with HytaleInstanceBuilderMappable {
   const HytaleInstanceBuilder({
     required this.name,
     required this.track,
+    // I guess this is patch?
     required this.version,
   });
 }

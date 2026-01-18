@@ -11,7 +11,7 @@ import 'package:wharf_flutter/generated/frb_generated.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await RustLib.init();
-  await StorageManager.init();
+  await StorageService.init();
   runApp(const ProviderScope(child: MainApp()));
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hyloader/features/instances/components/list.dart';
 import 'package:hyloader/features/launcher/components/play.dart';
 
 class LauncherScreen extends ConsumerStatefulWidget {
@@ -24,6 +25,7 @@ class _LauncherScreenState extends ConsumerState<LauncherScreen> {
               //   crossAxisAlignment: .start,
               //   children: [Text("Hyloader", style: theme.textTheme.titleLarge)],
               // ),
+              child: InstancesList(),
             ),
           ),
           Positioned(right: 24, bottom: 24, child: PlayButton()),

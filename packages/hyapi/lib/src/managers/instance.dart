@@ -28,7 +28,7 @@ class InstanceManager extends Manager {
 
   List<HytaleInstance> listAll() {
     final box = Hive.box("instances");
-    final instances = box.values.map((e) => HytaleInstanceMapper.fromMap(e));
+    final instances = box.values.map((e) => HytaleInstanceMapper.fromJson(e));
 
     return instances.toList();
   }

@@ -14,4 +14,12 @@ class Instances extends _$Instances {
 
     return client.instances.listAll();
   }
+
+  Future<HytaleInstance> create(HytaleInstanceBuilder builder) async {
+    final client = ref.read(clientControllerProvider)!;
+    final instance = await client.instances.create(builder);
+    ref.invalidateSelf();
+
+    return instance;
+  }
 }
