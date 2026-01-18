@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'client.dart';
+part of 'instance.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,51 +9,51 @@ part of 'client.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(ClientController)
-final clientControllerProvider = ClientControllerProvider._();
+@ProviderFor(Instances)
+final instancesProvider = InstancesProvider._();
 
-final class ClientControllerProvider
-    extends $NotifierProvider<ClientController, HytaleClient?> {
-  ClientControllerProvider._()
+final class InstancesProvider
+    extends $NotifierProvider<Instances, List<HytaleInstance>> {
+  InstancesProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'clientControllerProvider',
+        name: r'instancesProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$clientControllerHash();
+  String debugGetCreateSourceHash() => _$instancesHash();
 
   @$internal
   @override
-  ClientController create() => ClientController();
+  Instances create() => Instances();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(HytaleClient? value) {
+  Override overrideWithValue(List<HytaleInstance> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<HytaleClient?>(value),
+      providerOverride: $SyncValueProvider<List<HytaleInstance>>(value),
     );
   }
 }
 
-String _$clientControllerHash() => r'2efbcfde52d091521f8c74ce557360e9136f1729';
+String _$instancesHash() => r'43066e2d67d909ff43c331899398efe1d4930178';
 
-abstract class _$ClientController extends $Notifier<HytaleClient?> {
-  HytaleClient? build();
+abstract class _$Instances extends $Notifier<List<HytaleInstance>> {
+  List<HytaleInstance> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<HytaleClient?, HytaleClient?>;
+    final ref = this.ref as $Ref<List<HytaleInstance>, List<HytaleInstance>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<HytaleClient?, HytaleClient?>,
-              HytaleClient?,
+              AnyNotifier<List<HytaleInstance>, List<HytaleInstance>>,
+              List<HytaleInstance>,
               Object?,
               Object?
             >;

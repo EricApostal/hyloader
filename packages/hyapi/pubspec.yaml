@@ -20,6 +20,7 @@ dependencies:
   process_run: ^1.2.4
   riverpod_annotation: ^4.0.1
   url_launcher: ^6.3.2
+  uuid: ^4.5.2
   wharf_flutter:
     path:
       ../wharf_flutter
