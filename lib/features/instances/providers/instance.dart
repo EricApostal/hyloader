@@ -1,5 +1,6 @@
 import 'package:hyapi/hyapi.dart';
 import 'package:hyloader/features/authentication/repositories/client.dart';
+import 'package:hyloader/features/instances/repositories/instance.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'instance.g.dart';
@@ -12,12 +13,11 @@ class Instances extends _$Instances {
       return [];
     }
 
-    return client.instances.listAll();
+    return InstanceManager.listAll();
   }
 
   Future<HytaleInstance> create(HytaleInstanceBuilder builder) async {
-    final client = ref.read(clientControllerProvider)!;
-    final instance = await client.instances.create(builder);
+    final instance = await InstanceManager.create(builder);
     ref.invalidateSelf();
 
     return instance;

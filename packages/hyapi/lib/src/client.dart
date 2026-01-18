@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hyapi/authentication/oauth.dart';
 import 'package:hyapi/src/managers/account.dart';
-import 'package:hyapi/src/managers/instance.dart';
 import 'package:hyapi/src/managers/launcher.dart';
 import 'package:hyapi/src/managers/patch.dart';
 import 'package:hyapi/src/managers/session.dart';
@@ -22,7 +21,6 @@ class HytaleClient {
   PatchManager get patches => PatchManager(client: this);
   SessionManager get sessions => SessionManager(client: this);
   AccountManager get accounts => AccountManager(client: this);
-  InstanceManager get instances => InstanceManager(client: this);
   StorageManager get storage => StorageManager(client: this);
 
   static Future<HytaleClient> login({required LauncherOptions options}) async {

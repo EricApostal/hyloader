@@ -11,5 +11,6 @@ class StorageService {
     Hive.init(basePath);
 
     await Hive.openBox('accounts');
+    await Hive.openBox('instances');
   }
 }

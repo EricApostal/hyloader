@@ -41,7 +41,7 @@ final class InstancesProvider
   }
 }
 
-String _$instancesHash() => r'ecf281c36e9af7115f0c92954bfc71a9cf50e9be';
+String _$instancesHash() => r'ca859a9e8044e5b294869d069dfa9cb150547fc6';
 
 abstract class _$Instances extends $Notifier<List<HytaleInstance>> {
   List<HytaleInstance> build();
