@@ -1,5 +1,5 @@
 {
     "rust-analyzer.linkedProjects": [
-        "packages/wharf/rust/Cargo.toml"
+        "packages/wharf_flutter/rust/Cargo.toml"
     ]
 }

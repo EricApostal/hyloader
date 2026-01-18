@@ -87,12 +87,15 @@ class PatchManager extends Manager {
     final oldFolder = await Directory("$base/placeholder").create();
     final newFolder = await Directory("$base/game").create();
 
-    WharfService.patch(
+    await WharfService.patch(
       patchFile: patchFile,
       sigFile: sigFile,
       // yeah yeah the types are dookie will fix
       oldFile: File(oldFolder.path),
       newFile: File(newFolder.path),
+      onReceiveProgress: (count, total) {
+        print("Patching: $count bytes");
+      },
     );
   }
 }

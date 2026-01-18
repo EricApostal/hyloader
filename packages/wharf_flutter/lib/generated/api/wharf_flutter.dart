@@ -6,7 +6,7 @@
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-Future<void> patchWharf({
+Stream<PlatformInt64> patchWharf({
   required String patchPath,
   required String sigPath,
   required String oldPath,

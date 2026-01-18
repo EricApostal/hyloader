@@ -13,14 +13,13 @@ class LauncherManager extends Manager {
     final identityToken = session.identityToken;
     final sessionToken = session.sessionToken;
 
-    // todo: obviously fix this, but macos will need some special handling
+    // todo:  macos will need some special handling
     final clientPath =
-        "/home/eric/.var/app/com.hypixel.HytaleLauncher/data/Hytale/install/release/package/game/latest/Client/HytaleClient";
+        "${client.launcherOptions.basePath}/instances/game/Client/HytaleClient";
 
     final command =
         "$clientPath --name $name --uuid $uuid --identity-token $identityToken --session-token $sessionToken";
-    print("command");
-    print(command);
+
     final shell = Shell();
 
     shell.run(command);
