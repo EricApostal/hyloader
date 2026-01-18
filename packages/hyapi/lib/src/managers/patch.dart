@@ -26,7 +26,7 @@ class PatchManager extends Manager {
     required int currentPatch,
     required int latestPatch,
     required String savePath,
-    void Function(int, int)? onReceiveProgress,
+    void Function(int count, int total)? onReceiveProgress,
   }) async {
     final uri =
         "https://game-patches.hytale.com/patches/${getOs()}/${getArchitecture()}/release/$currentPatch/$latestPatch.pwr";
@@ -34,12 +34,7 @@ class PatchManager extends Manager {
     await client.dio.download(
       uri,
       savePath,
-      onReceiveProgress: (received, total) {
-        if (total <= 0) return;
-        print(
-          'Patch Download: ${(received / total * 100).toStringAsFixed(0)}%',
-        );
-      },
+      onReceiveProgress: onReceiveProgress,
     );
   }
 
@@ -55,8 +50,8 @@ class PatchManager extends Manager {
   }
 
   Future<void> downloadAndApplyLatestPatch({
-    void Function(int, int)? onPatchProgress,
-    void Function(int, int)? onPatchDownloadProgress,
+    void Function(int count, int total)? onPatchProgress,
+    void Function(int count, int total)? onPatchDownloadProgress,
   }) async {
     // idk how to check for existing, maybe a sig or smth but not sure if that works
     // actually this is probably a trust me bro and I store it in hive

@@ -8,7 +8,14 @@ class LauncherManager extends Manager {
   const LauncherManager({required super.client});
 
   Future<void> launchInstance(HytaleInstance instance) async {
-    await client.patches.downloadAndApplyLatestPatch();
+    await client.patches.downloadAndApplyLatestPatch(
+      onPatchDownloadProgress: (count, total) {
+        print('Patch Download: ${(count / total * 100).toStringAsFixed(0)}%');
+      },
+      onPatchProgress: (count, total) {
+        print('Patching: ${(count / total * 100).toStringAsFixed(0)}%');
+      },
+    );
     final session = await client.sessions.create();
     final profile = client.launcherData.profiles.first;
     final name = profile.username;
