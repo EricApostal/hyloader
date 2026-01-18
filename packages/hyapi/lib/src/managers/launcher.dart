@@ -8,14 +8,14 @@ class LauncherManager extends Manager {
   const LauncherManager({required super.client});
 
   Future<void> launchInstance(HytaleInstance instance) async {
-    await client.patches.downloadAndApplyLatestPatch(
-      onPatchDownloadProgress: (count, total) {
-        print('Patch Download: ${(count / total * 100).toStringAsFixed(0)}%');
-      },
-      onPatchProgress: (count, total) {
-        print('Patching: $count / $total');
-      },
-    );
+    // await client.patches.downloadAndApplyLatestPatch(
+    //   onPatchDownloadProgress: (count, total) {
+    //     print('Patch Download: ${(count / total * 100).toStringAsFixed(0)}%');
+    //   },
+    //   onPatchProgress: (count, total) {
+    //     print('Patching: $count / $total');
+    //   },
+    // );
     final session = await client.sessions.create();
     final profile = client.launcherData.profiles.first;
     final name = profile.username;
@@ -26,23 +26,33 @@ class LauncherManager extends Manager {
     // todo: This needs to be by version, not instance id
     // final instancePath =
     //     "${client.launcherOptions.basePath}/instances/${instance.id}";
-    final instancePath = client.launcherOptions.basePath;
-    final dataPath = "$instancePath/gamedata";
+    final basePath = client.launcherOptions.basePath;
+    final dataPath = "$basePath/gamedata";
     await Directory(dataPath).create(recursive: true);
 
     // todo: macos will need some special handling
-    String clientPath = "$instancePath/game/Client/HytaleClient";
+    String clientPath = "$basePath/game/Client/HytaleClient";
     if (Platform.isMacOS) {
       clientPath =
-          "$instancePath/game/Client/Hytale.app/Contents/MacOS/HytaleClient";
+          "$basePath/game/Client/Hytale.app/Contents/MacOS/HytaleClient";
     }
+
+    if (Platform.isMacOS || Platform.isLinux) {
+      print("did chmod!");
+      await Process.run('chmod', ['+x', clientPath]);
+    }
+
+    // final instancePath =
+    //     "${client.launcherOptions.basePath}/instances/${instance.id}";
+
+    final assetsPath = "$basePath/game/Assets.zip";
 
     // there's a --user-dir and --app-dir flag
     // I don't know what app dir does, but I really don't know what user dir means
     // my guess is that it's the UserData folder, but I would assume that would
     // just be the working directory
     final command =
-        "$clientPath --name $name --uuid $uuid --identity-token $identityToken --session-token $sessionToken";
+        "$clientPath --name $name --uuid $uuid --identity-token $identityToken --session-token $sessionToken --assets-path $assetsPath";
 
     final shell = Shell(workingDirectory: dataPath);
 
